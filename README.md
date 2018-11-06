@@ -1,16 +1,18 @@
-## Objective
+# Insight Data Engineering H1B statistics challenge
+
+## Problem
 
 Obtain top 10 most common occupations and states of certified H1B visa applications.
 
 
 ## Approach
 
-### Obtain csv file of data
+### 1. Obtain csv file of data
 
 This is done for us.
 
 
-### Parse csv file, unmarshalling the data
+### 2. Parse the input csv file, unmarshalling the data
 
 We can use the `csv` module for this.
 
@@ -18,18 +20,18 @@ To identify the column in the csv file containing the data we want, we can first
 
 This part of the code is a little fragile, in that we are depending on the format of the input csv files to not deviate too strongly from our assumptions, which we have made based on the csv files made available in the past.
 
-### Calculate the desired quantities
+### 3. Calculate the desired quantities
 
 There are a number of approaches to calculating the most frequent occupations and states that might be suitable. They include:
 
-- We can create a hash table mapping from occupations (or states) to the frequency of that occupation. We can create such a table by reading the input file one row at a time, and incrementing the value of the key corresponding to the job in the row by 1. Then, we can form a list of jobs paired with their frequencies, and sort the list. We can read the first 10 elements of the sorted list to get our desired answer.
+1. We can create a hash table mapping from occupations (or states) to the frequency of that occupation. We can create such a table by reading the input file one row at a time, and incrementing the value of the key corresponding to the job in the row by 1. Then, we can form a list of jobs paired with their frequencies, and sort the list. We can read the first 10 elements of the sorted list to get our desired answer.
 
-- We maintain a max-heap which contains 2-tuples of jobs paired with their frequencies. If we read in a new job that isn't in the heap, we push a tuple containing that job with a frequency of 1 into the heap. If we read in a job that we have in the heap, we increment the frequency of that job's tuple by 1, then sift up to maintain the heap invariant. To get the top 10, we can simply pop the heap 10 times after reading in all the data.
+2. We maintain a max-heap which contains 2-tuples of jobs paired with their frequencies. If we read in a new job that isn't in the heap, we push a tuple containing that job with a frequency of 1 into the heap. If we read in a job that we have in the heap, we increment the frequency of that job's tuple by 1, then sift up to maintain the heap invariant. To get the top 10, we can simply pop the heap 10 times after reading in all the data.
 
-- Both approaches above take O(n log n) time, where n is the number of rows in the input data file. There is another option that has better time complexity: using a doubly linked list to store the 2-tuples of jobs + frequencies, along with some hash tables storing additional information. This allows us to update the linked list in constant time, resulting in O(n) time complexity overall. See below for more details on this data structure (which I call the FreqMax data structure).
+3. Both approaches above take O(n log n) time, where n is the number of rows in the input data file. There is another option that has better time complexity: using a doubly linked list to store the 2-tuples of jobs + frequencies, along with some hash tables storing additional information. This allows us to update the linked list in constant time, resulting in O(n) time complexity overall. See below for more details on this data structure (which I call the FreqMax data structure).
 
 
-### Write the desired quantities to output file
+### 4. Write the desired quantities to the output file(s)
 
 We can use the `csv` module for this as well.
 
