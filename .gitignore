@@ -105,3 +105,6 @@ venv.bak/
 .mypy_cache/
 
 commit.txt
+
+input/*.csv
+

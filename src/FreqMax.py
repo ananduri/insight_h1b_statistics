@@ -145,7 +145,6 @@ class FreqMax:
             
         return g(k, self.dblist)
         
-
     def getmaxgrouped(self, k=1):
         node, count = self.dblist, k
         keys = []

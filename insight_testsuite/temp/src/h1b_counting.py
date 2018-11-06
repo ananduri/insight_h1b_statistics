@@ -3,8 +3,10 @@ import sys
 import itertools
 from FreqMax import FreqMax
 
+
 def flatmap(a):
-        return itertools.chain.from_iterable(a)
+    return itertools.chain.from_iterable(a)
+
 
 def get_jobs(input_file):
     with open(input_file) as f:
@@ -105,6 +107,7 @@ def main(input_file, output_jobs, output_states):
     states = get_states(input_file)
 
     write_output(jobs, states, output_jobs, output_states)
+
 
 if __name__ == '__main__':
     input_file = sys.argv[1]
