@@ -40,17 +40,28 @@ class FreqMax:
         a new node is created for the key with a frequency of 1.
         This method does not return anything.
     
-    getmax(k=1, tiebreaker=None)
-        Returns a generator containing the k most frequently seen keys
-        in sorted order. If k is greater than the number of keys 
+    getmax(k=1)
+        Returns a generator containing the top k most frequently seen
+        keys in sorted order. If k is greater than the number of keys 
         in the data structure, then all the keys are returned
         in sorted order, and no warning is raised.
-        
-        If the frequencies of multiple keys are tied,
-        the tiebreaker function is used to sort the tied keys.
-        If the tiebreaker function is not supplied, an arbitrary
-        set of the tied keys will be chosen such that k total keys 
-        are returned.
+    
+        On the other hand, if there are multiple keys with
+        the smallest frequency out of the top k keys' frequencies,
+        then return all of those keys. In this case the returned
+        generator will contain more than k keys.
+    
+    getmaxgrouped(k=1)
+        Return a list of lists containing the top k most frequently
+        seen keys. There will be k lists in the returned list.
+        Each of those lists will contain at least 1 key.
+        If there are multiple keys with the same frequency,
+        then the list with that frequency will contain all
+        of those keys, in an arbitrary order.
+    
+    display()
+        Prints out a view of the data structure
+        that is useful for debugging.
     '''
     
     def __init__(self):

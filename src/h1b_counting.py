@@ -40,7 +40,7 @@ def get_jobs(input_file):
             jobmax.add(line[job_title_index])
             totaljobs += 1
 
-    # Obtain a generator of lists containing the most frequent jobs,
+    # Obtain a list of lists containing the most frequent jobs,
     # ordered by frequencies.
     # That is, jobs looks like ([job1], [job2, job3], [job4])
     # where job2 and job3 are in the same list because 
@@ -50,6 +50,8 @@ def get_jobs(input_file):
     # relative to each other.
     jobs = (sorted(l) for l in jobs)
 
+    # Using generators here because lazy evaluation leaves room for
+    # optimizing the code to be more efficient
     top10jobs = itertools.islice(flatmap(jobs), 10)
 
     output = [(datum.key, datum.value, '{0}%'.format(round(100 * datum.value / totaljobs, 1))) \
@@ -94,7 +96,7 @@ def get_states(input_file):
             statemax.add(line[state_index])
             totalstates += 1        
 
-    # Obtain a generator of lists containing the most frequent states,
+    # Obtain a list of lists containing the most frequent states,
     # ordered by frequencies.
     # That is, states looks like ([state1], [state2, state3], [state4])
     # where state2 and state3 are in the same list because 
@@ -102,8 +104,10 @@ def get_states(input_file):
     states = statemax.getmaxgrouped(10)
     # Put all states with the same frequency in alphabetical order
     # relative to each other.
-    states = [sorted(l) for l in states]
+    states = (sorted(l) for l in states)
 
+    # Using generators here because lazy evaluation leaves room for
+    # optimizing the code to be more efficient
     top10states = itertools.islice(flatmap(states), 10)
 
     output = [(datum.key, datum.value, '{0}%'.format(round(100 * datum.value / totalstates, 1))) \
