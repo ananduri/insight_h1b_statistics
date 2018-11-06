@@ -30,6 +30,7 @@ There are a number of approaches to calculating the most frequent occupations an
 
 3. Both approaches above take O(n log n) time, where n is the number of rows in the input data file. There is another option that has better time complexity: using a doubly linked list to store the 2-tuples of jobs + frequencies, along with some hash tables storing additional information. This allows us to update the linked list in constant time, resulting in O(n) time complexity overall. See below for more details on this data structure (which I call the FreqMax data structure).
 
+Also, I created two separate functions for calculating the most frequent jobs and states because the details of those calculations might change in the future. For example, we may want to tabulate job titles in addition to SOC_NAMEs, or calculate the most frequent states from all visa applications, not just certified applications. In general, although the code may look like it isn't following DRY (don't repeat yourself), I think overzealously applying DRY is also a mistake, so I chose to break the two calculations into separate functions for ease of extendability in the future.
 
 ### 4. Write the desired quantities to the output file(s)
 
